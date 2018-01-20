@@ -7,6 +7,7 @@ import org.springframework.shell.standard.ShellOption;
 import ua.com.globallogic.airline.domain.AirCraft;
 import ua.com.globallogic.airline.service.AirCraftService;
 
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 @ShellComponent
@@ -19,9 +20,19 @@ public class AirlineCLI {
         this.airCraftService = airCraftService;
     }
 
-    @ShellMethod("Show all aircrafts")
-    public String all(){
-        return airCraftService.findAll().stream().map(Object::toString).collect(Collectors.joining("\n"));
+    @ShellMethod(value = "Show all aircrafts (optional sorted by flight range)", prefix = "-")
+    public String all(@ShellOption boolean sorted){
+
+        if (sorted) {
+            return airCraftService.findAll().stream()
+                    .sorted(new AirCraftFuelRangeComparator().reversed())
+                    .map(Object::toString)
+                    .collect(Collectors.joining("\n"));
+        } else {
+            return airCraftService.findAll().stream()
+                    .map(Object::toString)
+                    .collect(Collectors.joining("\n"));
+        }
     }
 
     @ShellMethod("Add new aircraft")
@@ -47,4 +58,37 @@ public class AirlineCLI {
             return "Not found";
         }
     }
+
+    @ShellMethod(value = "Calculate total capacity or carrying capacity", prefix = "-")
+    public String total(@ShellOption boolean capacity, @ShellOption boolean carrying){
+
+        double capacityValue = airCraftService.totalCapacity();
+        double carryingValue = airCraftService.totalCarryingCapacity();
+        if ((!capacity && !carrying) || (capacity && carrying)) {
+            return "Total: \n\tcapacity: " + capacityValue + "\n\tcarrying capacity: " + carryingValue;
+        } else if (capacity) {
+            return "Total capacity: " + capacityValue;
+        } else {
+            return "Total carrying capacity: " + carryingValue;
+        }
+    }
+
+    @ShellMethod(value = "Find aircraft corresponding to the specified range of fuel consumption parameters " +
+            "(liters per hour", prefix = "-")
+    public String find(@ShellOption(arity = 2) double[] range){
+        return airCraftService.findAllByConsumptionBetween(range[0], range[1]).stream()
+                .map(Object::toString)
+                .collect(Collectors.joining("\n"));
+
+    }
+
+    class AirCraftFuelRangeComparator implements Comparator<AirCraft> {
+
+        @Override
+        public int compare(AirCraft o1, AirCraft o2) {
+            return Double.compare(o1.getFlightRange(), o2.getFlightRange());
+        }
+
+    }
+
 }

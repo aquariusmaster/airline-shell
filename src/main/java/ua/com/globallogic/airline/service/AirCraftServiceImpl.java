@@ -6,6 +6,7 @@ import ua.com.globallogic.airline.dao.AirCraftRepository;
 import ua.com.globallogic.airline.domain.AirCraft;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AirCraftServiceImpl implements AirCraftService{
@@ -38,6 +39,22 @@ public class AirCraftServiceImpl implements AirCraftService{
         airCraftRepository.delete(airCraftId);
     }
 
+    @Override
+    public double totalCapacity() {
+        return findAll().stream().mapToDouble(AirCraft::getCapacity).sum();
+    }
+
+    @Override
+    public double totalCarryingCapacity() {
+        return findAll().stream().mapToDouble(AirCraft::getCarryingCapacity).sum();
+    }
+
+    @Override
+    public List<AirCraft> findAllByConsumptionBetween(double start, double end) {
+        return findAll().stream()
+                .filter((airCraft -> airCraft.getFuelConsumption() >= start && airCraft.getFuelConsumption() <= end))
+                .collect(Collectors.toList());
+    }
 
 
 }

@@ -3,10 +3,10 @@ package ua.com.globallogic.airline.domain;
 public class AirCraft {
 
     private Long id;
-    private float capacity;
-    private float carryingCapacity;
-    private float flightRange;
-    private float fuelConsumption;
+    private double capacity;
+    private double carryingCapacity;
+    private double flightRange;
+    private double fuelConsumption;
 
     public Long getId() {
         return id;
@@ -16,35 +16,35 @@ public class AirCraft {
         this.id = id;
     }
 
-    public float getCapacity() {
+    public double getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(float capacity) {
+    public void setCapacity(double capacity) {
         this.capacity = capacity;
     }
 
-    public float getCarryingCapacity() {
+    public double getCarryingCapacity() {
         return carryingCapacity;
     }
 
-    public void setCarryingCapacity(float carryingCapacity) {
+    public void setCarryingCapacity(double carryingCapacity) {
         this.carryingCapacity = carryingCapacity;
     }
 
-    public float getFlightRange() {
+    public double getFlightRange() {
         return flightRange;
     }
 
-    public void setFlightRange(float flightRange) {
+    public void setFlightRange(double flightRange) {
         this.flightRange = flightRange;
     }
 
-    public float getFuelConsumption() {
+    public double getFuelConsumption() {
         return fuelConsumption;
     }
 
-    public void setFuelConsumption(float fuelConsumption) {
+    public void setFuelConsumption(double fuelConsumption) {
         this.fuelConsumption = fuelConsumption;
     }
 
