@@ -1,4 +1,4 @@
-package ua.com.globallogic.airline.shell;
+package ua.com.globallogic.airline.service.shell;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
@@ -59,7 +59,8 @@ public class AirlineCLI {
         }
     }
 
-    @ShellMethod(value = "Calculate total capacity or carrying capacity", prefix = "-")
+    @ShellMethod(value = "Calculate total capacity and carrying capacity of all the aircraft in the airline",
+            prefix = "-")
     public String total(@ShellOption boolean capacity, @ShellOption boolean carrying){
 
         double capacityValue = airCraftService.totalCapacity();
