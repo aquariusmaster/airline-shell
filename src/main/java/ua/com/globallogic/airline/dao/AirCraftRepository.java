@@ -4,6 +4,9 @@ import ua.com.globallogic.airline.domain.AirCraft;
 
 import java.util.List;
 
+/**
+ * AirCraftRepository interface
+ */
 public interface AirCraftRepository {
     AirCraft saveOrUpdate(AirCraft airCraft);
     AirCraft findOne(Long airCraftId);

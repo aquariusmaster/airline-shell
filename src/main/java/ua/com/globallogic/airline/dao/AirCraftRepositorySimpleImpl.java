@@ -10,6 +10,9 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * AirCraftRepository implementation
+ */
 @Repository
 public class AirCraftRepositorySimpleImpl implements AirCraftRepository {
 

@@ -4,6 +4,9 @@ import ua.com.globallogic.airline.domain.AirCraft;
 
 import java.util.List;
 
+/**
+ * AirCraftService interface
+ */
 public interface AirCraftService {
     AirCraft findOne(Long airCraftId);
     List<AirCraft> findAll(boolean sorted);

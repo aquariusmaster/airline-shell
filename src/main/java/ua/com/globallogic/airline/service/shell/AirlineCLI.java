@@ -7,9 +7,11 @@ import org.springframework.shell.standard.ShellOption;
 import ua.com.globallogic.airline.domain.AirCraft;
 import ua.com.globallogic.airline.service.AirCraftService;
 
-import java.util.Comparator;
 import java.util.stream.Collectors;
 
+/**
+ * A class for various shell interactions.
+ */
 @ShellComponent
 public class AirlineCLI {
 
@@ -21,7 +23,7 @@ public class AirlineCLI {
     }
 
     @ShellMethod(value = "Show all aircrafts (optional sorted by flight range)", prefix = "-")
-    public String all(@ShellOption boolean sorted){
+    public String all(@ShellOption(help = "sorted by flight range") boolean sorted){
 
         return airCraftService.findAll(sorted).stream().map(Object::toString)
                     .collect(Collectors.joining("\n"));
@@ -32,6 +34,7 @@ public class AirlineCLI {
                       float carryingCapacity,
                       float flightRange,
                       float fuelConsumption){
+
         AirCraft airCraft = new AirCraft();
         airCraft.setCapacity(capacity);
         airCraft.setCarryingCapacity(carryingCapacity);
@@ -43,6 +46,7 @@ public class AirlineCLI {
 
     @ShellMethod("Get aircraft by id")
     public String get(Long id){
+
         AirCraft airCraft = airCraftService.findOne(id);
         if (airCraft != null){
             return airCraft.toString();
@@ -53,25 +57,27 @@ public class AirlineCLI {
 
     @ShellMethod(value = "Calculate total capacity and carrying capacity of all the aircraft in the airline",
             prefix = "-")
-    public String total(@ShellOption boolean capacity, @ShellOption boolean carrying){
+    public String total(@ShellOption(help = "output total capacity") boolean capacity,
+                        @ShellOption(help = "output total carrying capacity") boolean carrying){
 
-        double capacityValue = airCraftService.totalCapacity();
-        double carryingValue = airCraftService.totalCarryingCapacity();
         if ((!capacity && !carrying) || (capacity && carrying)) {
+            double capacityValue = airCraftService.totalCapacity();
+            double carryingValue = airCraftService.totalCarryingCapacity();
             return "Total: \n\tcapacity: " + capacityValue + "\n\tcarrying capacity: " + carryingValue;
         } else if (capacity) {
+            double capacityValue = airCraftService.totalCapacity();
             return "Total capacity: " + capacityValue;
         } else {
+            double carryingValue = airCraftService.totalCarryingCapacity();
             return "Total carrying capacity: " + carryingValue;
         }
     }
 
     @ShellMethod(value = "Find aircraft corresponding to the specified range of fuel consumption parameters " +
-            "(liters per hour", prefix = "-")
-    public String find(@ShellOption(arity = 2) double[] range){
+            "(liters per hour)", prefix = "-")
+    public String find(@ShellOption(arity = 2, help = "range of fuel consumption") double[] range){
         return airCraftService.findAllByConsumptionBetween(range[0], range[1]).stream()
                 .map(Object::toString)
                 .collect(Collectors.joining("\n"));
-
     }
 }
