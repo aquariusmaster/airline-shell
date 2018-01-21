@@ -24,7 +24,9 @@ List of commands:
    - **get**: Get aircraft by id
    - **total**: Calculate total capacity and carrying capacity of all the aircraft in the airline
    - **find**: Find aircraft corresponding to the specified range of fuel consumption parameters (liters per hour)
-
+   - **clear**: Clear the screen.
+   - **exit**: Exit from programm.
+   
 Use `help` or `help <commmand>` to get more information about commands.
 
 ## Examples
