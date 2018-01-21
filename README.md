@@ -14,7 +14,9 @@ or run as jar
 java -jar spring-shell.jar
 ```
 From there, use commands at the shell prompt.
+
 ##Using
+
 List of commands:
 
    - **all**: Show all aircrafts (with optional sorted by flight range)
