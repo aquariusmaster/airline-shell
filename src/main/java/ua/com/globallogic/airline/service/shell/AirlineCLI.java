@@ -23,16 +23,8 @@ public class AirlineCLI {
     @ShellMethod(value = "Show all aircrafts (optional sorted by flight range)", prefix = "-")
     public String all(@ShellOption boolean sorted){
 
-        if (sorted) {
-            return airCraftService.findAll().stream()
-                    .sorted(new AirCraftFuelRangeComparator().reversed())
-                    .map(Object::toString)
+        return airCraftService.findAll(sorted).stream().map(Object::toString)
                     .collect(Collectors.joining("\n"));
-        } else {
-            return airCraftService.findAll().stream()
-                    .map(Object::toString)
-                    .collect(Collectors.joining("\n"));
-        }
     }
 
     @ShellMethod("Add new aircraft")
@@ -82,14 +74,4 @@ public class AirlineCLI {
                 .collect(Collectors.joining("\n"));
 
     }
-
-    class AirCraftFuelRangeComparator implements Comparator<AirCraft> {
-
-        @Override
-        public int compare(AirCraft o1, AirCraft o2) {
-            return Double.compare(o1.getFlightRange(), o2.getFlightRange());
-        }
-
-    }
-
 }

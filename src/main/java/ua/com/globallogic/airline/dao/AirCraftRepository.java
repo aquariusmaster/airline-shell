@@ -9,5 +9,7 @@ public interface AirCraftRepository {
     AirCraft findOne(Long airCraftId);
     List<AirCraft> findAll();
     void delete(Long airCraftId);
-
+    List<AirCraft> findAllByConsumptionBetween(double start, double end);
+    double totalCapacity();
+    double totalCarryingCapacity();
 }

@@ -47,4 +47,21 @@ public class AirCraftRepositorySimpleImpl implements AirCraftRepository {
         AirCraft airCraft = findOne(airCraftId);
         airCrafts.remove(airCraft);
     }
+
+    @Override
+    public List<AirCraft> findAllByConsumptionBetween(double start, double end) {
+        return  airCrafts.stream()
+                .filter((airCraft -> airCraft.getFuelConsumption() >= start && airCraft.getFuelConsumption() <= end))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public double totalCapacity() {
+        return airCrafts.stream().mapToDouble(AirCraft::getCapacity).sum();
+    }
+
+    @Override
+    public double totalCarryingCapacity() {
+        return airCrafts.stream().mapToDouble(AirCraft::getCarryingCapacity).sum();
+    }
 }

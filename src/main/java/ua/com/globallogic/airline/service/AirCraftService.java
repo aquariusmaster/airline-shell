@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AirCraftService {
     AirCraft findOne(Long airCraftId);
-    List<AirCraft> findAll();
+    List<AirCraft> findAll(boolean sorted);
     AirCraft saveOrUpdate(AirCraft airCraft);
     void delete(Long airCraftId);
     double totalCapacity();
