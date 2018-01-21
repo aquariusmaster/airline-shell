@@ -27,10 +27,12 @@ public class AirCraftServiceImpl implements AirCraftService{
     @Override
     public List<AirCraft> findAll(boolean sorted) {
         if (sorted) {
+            System.out.println("sorted");
             return airCraftRepository.findAll().stream()
                     .sorted(new AirCraftFuelRangeComparator().reversed())
                     .collect(Collectors.toList());
         } else {
+            System.out.println("un sorted");
             return airCraftRepository.findAll();
         }
     }
