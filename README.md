@@ -15,7 +15,7 @@ java -jar spring-shell.jar
 ```
 From there, use commands at the shell prompt.
 
-##Using
+## Using
 
 List of commands:
 
